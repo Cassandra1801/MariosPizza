@@ -1,17 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+
 public class Main {
+    public static boolean aabent = true;
+
     public static void main(String[] args) {
 
-        List<Pizza> pizza =  new ArrayList<Pizza>();
-        pizza = FileUtil.readPizzaFromFile();
+        while (aabent == true )  {
 
-        for (Pizza p : pizza){
-            System.out.println(p);
+            List<Pizza> pizza =  new ArrayList<Pizza>();
+            pizza = FileUtil.readPizzaFromFile();
+
+            for (Pizza p : pizza) {
+            System.out.println();
+            }
         }
-
     }
 }
