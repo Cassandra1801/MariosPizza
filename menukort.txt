@@ -1,0 +1,14 @@
+1 | Vesuvio: Tomatsauce, ost, skinke, oregano | 57
+2 | Amerikaner: tomatsauce, ost, oksefars, oregano | 53 | Nyhed
+3 | Cacciatore: tomatsauce, ost, pepperoni, oregano | 57
+4 | Carbona: tomatsauce, ost, kødsauce, spaghetti, cocktailpølser, oregano | 63 | Nyhed
+5 | Dennis: tomatsauce, ost, skinke, pepperoni, cocktailpølser, oregano | 65 | Nyhed
+6 | Bertil: tomatsauce, ost, bacon, oregano | 57
+7 | Silvia: tomatsauce, ost, pepperoni, rødpeber, løg, oliven, oregano | 61
+8 | Victoria: tomatsauce, ost, skinke, ananas, champignon, løg, oregano | 61
+9 | Toronfo: tomatsauce, ost, skinke, bacon, kebab, chili, oregano | 61 | Nyhed
+10 | Capricciosa: tomatsauce, ost, skinke, champignon, oregano | 61
+11 | Hawaii: tomatsauce, ost, skinke, ananas, oregano | 61
+12 | Le Blissola: tomatsauce, ost, skinke, rejer, oregano | 61
+13 | venezia: tomatsauce, ost, skinke, bacon, oregano | 61
+14 | Mafia: tomatsauce, ost, pepperoni, bacon, løg, oregano | 61 | Nyhed
