@@ -10,7 +10,7 @@ public class Main {
         pizza = FileUtil.readPizzaFromFile();
 
         for (Pizza p : pizza){
-            System.out.print(p);
+            System.out.println(p);
         }
 
     }

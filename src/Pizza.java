@@ -14,5 +14,21 @@ public class Pizza {
         this.toppings = toppings;
         this.pris = pris;
     }
-
+public int getPizzaID() {
+        return pizzaID;
 }
+public String getNavn() {
+        return navn;
+}
+public String getToppings() {
+        return toppings;
+}
+public double getPris() {
+        return pris;
+}
+    @Override
+    public String toString() {
+        return pizzaID + "." + navn + ":" + toppings + "|" + pris;
+    }
+}
+
