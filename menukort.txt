@@ -1,14 +1,14 @@
-1_ Vesuvio _ Tomatsauce, ost, skinke, oregano _57
-2_ Amerikaner _ tomatsauce, ost, oksefars, oregano _53
-3_ Cacciatore _ tomatsauce, ost, pepperoni, oregano _57
-4_ Carbona _ tomatsauce, ost, kødsauce, spaghetti, cocktailpølser, oregano _63
-5_ Dennis _ tomatsauce, ost, skinke, pepperoni, cocktailpølser, oregano _65
-6_ Bertil _ tomatsauce, ost, bacon, oregano _57
-7_ Silvia _ tomatsauce, ost, pepperoni, rødpeber, løg, oliven, oregano _61
-8_ Victoria _ tomatsauce, ost, skinke, ananas, champignon, løg, oregano _61
-9_ Toronfo _ tomatsauce, ost, skinke, bacon, kebab, chili, oregano _61
-10_ Capricciosa _ tomatsauce, ost, skinke, champignon, oregano _61
-11_ Hawaii _ tomatsauce, ost, skinke, ananas, oregano _61
-12_ Le Blissola _ tomatsauce, ost, skinke, rejer, oregano _61
-13_ venezia _ tomatsauce, ost, skinke, bacon, oregano _61
-14_ Mafia _ tomatsauce, ost, pepperoni, bacon, løg, oregano _61
+1_Vesuvio_Tomatsauce, ost, skinke, oregano_57.00
+2_Amerikaner_tomatsauce, ost, oksefars, oregano_53.00
+3_Cacciatore_tomatsauce, ost, pepperoni, oregano_57.00
+4_Carbona_tomatsauce, ost, kødsauce, spaghetti, cocktailpølser, oregano_63.00
+5_Dennis_tomatsauce, ost, skinke, pepperoni, cocktailpølser, oregano_65.00
+6_Bertil_tomatsauce, ost, bacon, oregano_57.00
+7_Silvia_tomatsauce, ost, pepperoni, rødpeber, løg, oliven, oregano_61.00
+8_Victoria_tomatsauce, ost, skinke, ananas, champignon, løg, oregano_61.00
+9_Toronfo_tomatsauce, ost, skinke, bacon, kebab, chili, oregano_61.00
+10_Capricciosa_tomatsauce, ost, skinke, champignon, oregano_61.00
+11_Hawaii_tomatsauce, ost, skinke, ananas, oregano_61.00
+12_Le Blissola_tomatsauce, ost, skinke, rejer, oregano_61.00
+13_venezia_tomatsauce, ost, skinke, bacon, oregano_61.00
+14_Mafia_tomatsauce, ost, pepperoni, bacon, løg, oregano_61.00
