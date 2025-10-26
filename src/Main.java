@@ -41,7 +41,7 @@ public class Main {
                 long sekunderTilbage = diff.getSeconds();
 
                 if (sekunderTilbage <= 0) {
-                    System.out.print("\r🍕 Ordren er leveret!                \n");
+                    System.out.print("\r🍕 Ordren er leveret!\n");
                     break;
                 }
 

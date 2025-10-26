@@ -1,4 +1,4 @@
-1_Vesuvio_Tomatsauce, ost, skinke, oregano_57.00
+1_Vesuvio_tomatsauce, ost, skinke, oregano_57.00
 2_Amerikaner_tomatsauce, ost, oksefars, oregano_53.00
 3_Cacciatore_tomatsauce, ost, pepperoni, oregano_57.00
 4_Carbona_tomatsauce, ost, kødsauce, spaghetti, cocktailpølser, oregano_63.00

@@ -19,7 +19,7 @@ public class FileUtil {
                 int pizzaID = Integer.parseInt(data[0]);                                        //Sætter variabel til data på index 0
                 String navn = data[1];                                                          //Sætter variabel til data på index 1
                 String toppings = data[2];                                                      //Sætter variabel til data på index 2
-                int pris = Integer.parseInt(data[3]);                                           //Sætter variabel til data på index 3
+                double pris = Double.parseDouble(data[3]);                                           //Sætter variabel til data på index 3
                 PizzaMenuObj pizzaMenuObj = new PizzaMenuObj(pizzaID, navn, toppings, pris);    //Indsætter det forrige data til et pizzaMenuObj objekt
                 menukort.add(pizzaMenuObj);                                                     //Indsætter det objekt ind i array listen
             }
