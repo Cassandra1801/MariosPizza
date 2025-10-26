@@ -10,5 +10,5 @@
 10_Capricciosa_tomatsauce, ost, skinke, champignon, oregano_61.00
 11_Hawaii_tomatsauce, ost, skinke, ananas, oregano_61.00
 12_Le Blissola_tomatsauce, ost, skinke, rejer, oregano_61.00
-13_venezia_tomatsauce, ost, skinke, bacon, oregano_61.00
+13_Venezia_tomatsauce, ost, skinke, bacon, oregano_61.00
 14_Mafia_tomatsauce, ost, pepperoni, bacon, løg, oregano_61.00

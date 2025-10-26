@@ -6,20 +6,20 @@ import java.util.List;
 
 public class FileUtil {
 
-    public static List<PizzaMenuObj> readPizzaFromFile() {                                      //Funktion for at få array listen med ojekter fra filen
+    public static List<PizzaMenuObj> readPizzaFromFile() {                                      //Funktion for at få array listen med objekter fra filen
 
         String deling = "_";                                                                    //Dette er den definerede deler
         String line = "";
-        String menukortFile = "menukort.txt";                                                   //Referense til hvilken fil
+        String menukortFile = "menukort.txt";                                                   //Reference til hvilken fil
         List<PizzaMenuObj> menukort = new ArrayList<>();                                        //Laver en array liste
 
         try(BufferedReader br = new BufferedReader(new FileReader(menukortFile))){              //Læser fra fil
             while((line = br.readLine()) != null) {
-                String[] data = line.split(deling);                                             //Bruger deleren til at at skille mellen data på linjen
+                String[] data = line.split(deling);                                             //Bruger deleren til at skille mellem data på linjen
                 int pizzaID = Integer.parseInt(data[0]);                                        //Sætter variabel til data på index 0
                 String navn = data[1];                                                          //Sætter variabel til data på index 1
                 String toppings = data[2];                                                      //Sætter variabel til data på index 2
-                double pris = Double.parseDouble(data[3]);                                           //Sætter variabel til data på index 3
+                double pris = Double.parseDouble(data[3]);                                      //Sætter variabel til data på index 3
                 PizzaMenuObj pizzaMenuObj = new PizzaMenuObj(pizzaID, navn, toppings, pris);    //Indsætter det forrige data til et pizzaMenuObj objekt
                 menukort.add(pizzaMenuObj);                                                     //Indsætter det objekt ind i array listen
             }
