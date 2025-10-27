@@ -68,7 +68,24 @@ public class Main {
             if (input.equals("new")) {                          //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
                 System.out.println("Laver ny");
 
-                /// Tilføjer til filen fra input
+
+                String hvilkePizza;
+                int tid;
+                String navn;
+
+                Scanner scPizza = new Scanner(System.in);
+                Scanner scTid = new Scanner(System.in);
+                Scanner scNavn = new Scanner(System.in);
+
+                hvilkePizza = scPizza.nextLine();
+                tid = Integer.parseInt(scTid.nextLine());
+                navn = scNavn.nextLine();
+
+                System.out.println(hvilkePizza + " " + tid + " min " + navn + " ");
+
+
+
+                /// Tilføjer til filen fra inputc
 
             } else if (input.equals("sluk")) {
                 System.out.println("Slukker");
@@ -88,22 +105,22 @@ public class Main {
 
 
 
-    //Laver file for dagen til at lagre ordrer på dagen
+                                                                                              //Laver file for dagen til at lagre ordrer på dagen
     public static void DagensFil() {
 
     DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
     String date = LocalDateTime.now().format(formatter);
 
         try {
-            File myObj = new File(date + ".txt"); // Create File object
-            if (myObj.createNewFile()) {           // Try to create the file
+            File myObj = new File(date + ".txt");                                            // Create File object
+            if (myObj.createNewFile()) {                                                    // Try to create the file
                 System.out.println("File created: " + myObj.getName());
             } else {
                 System.out.println("File already exists.");
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
-            e.printStackTrace(); // Print error details
+            e.printStackTrace();                                                            // Print error details
         }
     }
 }
