@@ -20,7 +20,7 @@ public class Main {
                 System.out.println(p);
             }
 
-
+            /*
             /// Alt under her er det der får tiden til at tælle live ========================================
 
             // Sæt hvor lang tid leveringen tager (f.eks. 2 minutter)
@@ -54,6 +54,8 @@ public class Main {
 
                 Thread.sleep(1000); // Opdater hvert sekund
             }
+
+             */
 
             Scanner input = new Scanner(System.in);
             input.nextLine();
