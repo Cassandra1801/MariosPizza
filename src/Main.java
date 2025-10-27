@@ -62,8 +62,27 @@ public class Main {
 
              */
 
-            Scanner input = new Scanner(System.in);
-            input.nextLine();
+            Scanner sc = new Scanner(System.in);
+            String input = sc.nextLine();                       //inputtet må lagres som en string variabel, for ellers vil equals ikke læse det
+
+            if (input.equals("new")) {                          //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
+                System.out.println("Laver ny");
+
+                /// Tilføjer til filen fra input
+
+            } else if (input.equals("sluk")) {
+                System.out.println("Slukker");
+                aabent = false;
+            } else if (input.equals("Help")) {
+                System.out.println("new");
+                System.out.println("sluk");
+                System.out.println("help");
+            } else {
+                System.out.println("Prøv i stedet følgende:");
+                System.out.println("new");
+                System.out.println("sluk");
+                System.out.println("help");
+            }
         }
     }
 
