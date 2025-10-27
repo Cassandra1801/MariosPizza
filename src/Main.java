@@ -11,7 +11,40 @@ import java.util.Scanner;
 
 
 public class Main {
+
+    //Boolean for at holde while loop kørende
     public static boolean aabent = true;
+
+    //Finder datoen
+    public static DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static String datoen = LocalDateTime.now().format(formatter);
+
+    public static String getDate() {
+        return datoen;
+    }
+
+    //Laver file for dagen til at lagre ordrer på dagen
+    public static void DagensFil() {
+        try {
+            File myObj = new File(getDate() + ".txt");                                            // Create File object
+            if (myObj.createNewFile()) {                                                    // Try to create the file
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();                                                            // Print error details
+        }
+    }
+
+    //Finder tiden
+    public static DateTimeFormatter timeFormatter =  DateTimeFormatter.ofPattern("HH:mm");
+    public static String tidenNu = LocalDateTime.now().format(timeFormatter);
+
+    public static String getTime() {
+        return tidenNu;
+    }
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -28,6 +61,8 @@ public class Main {
             for (PizzaMenuObj p : pizzaMenuObj) {
                 System.out.println(p);
             }
+
+
 
             /*
             /// Alt under her er det der får tiden til at tælle live ========================================
@@ -75,7 +110,7 @@ public class Main {
             String input = sc.nextLine();                       //inputtet må lagres som en string variabel, for ellers vil equals ikke læse det
 
             //Start menu elementer for hvert if statement
-                //Laver en ny ordre
+            //Laver en ny ordre
             if (input.equals("new")) {                          //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
                 System.out.println("Laver ny");
 
@@ -88,7 +123,7 @@ public class Main {
                 Scanner scNavn = new Scanner(System.in);
 
                 //input for bestillingen
-                System.out.println("Bestilling:");
+                System.out.println("Bestilling:         (I format ANTALxTYPE, sepparer typer med et mellemrum) ");
                 hvilkePizza = scPizza.nextLine();
 
                 //input for tiden på bestillingen
@@ -102,8 +137,8 @@ public class Main {
                 System.out.println(hvilkePizza + " " + tid + " min " + navn + " ");
 
                 // true = append mode
-                try (FileWriter myWriter = new FileWriter(date + ".txt", true)) {
-                    myWriter.write(hvilkePizza + "_" + tid + "_" + navn + "_null" + "\n");
+                try (FileWriter myWriter = new FileWriter(getDate() + ".txt", true)) {
+                    myWriter.write(hvilkePizza + "_" + tid + "_" + getTime() + "_" + navn + "_" + "false" + "\n");
                 } catch (IOException e) {
                     System.out.println("An error occurred.");
                     e.printStackTrace();
@@ -129,27 +164,6 @@ public class Main {
                 System.out.println("Prøv igen. Brug help kommandoen."); // Bruges hvis de laver fx en stavefejl.
 
             }
-        }
-    }
-
-
-    //Finder datoen
-    public static DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    public static String date = LocalDateTime.now().format(formatter);
-
-
-    //Laver file for dagen til at lagre ordrer på dagen
-    public static void DagensFil() {
-        try {
-            File myObj = new File(date + ".txt");                                            // Create File object
-            if (myObj.createNewFile()) {                                                    // Try to create the file
-                System.out.println("File created: " + myObj.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();                                                            // Print error details
         }
     }
 }

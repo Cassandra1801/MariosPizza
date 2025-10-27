@@ -1,3 +1,8 @@
-1x5_15_karl_null
-1x4_16_dinfar_null
-1x1_17_labubu_null
+1x3_15_20:55_Toki_false
+2x3_20_20:55_Roar_false
+2x2 1x3_10_20:55_Herit_false
+
+Da der bliver læst fra filen for at differentiere pizzaerne,
+søger vid på den 4 karakter i dataet på det første index
+hvis det er lig med et mellemrum, betyder det at der er flere pizza typer,
+er der ikke en fjerde karakter, er der ikke flere pizzaer
