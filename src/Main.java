@@ -67,6 +67,9 @@ public class Main {
         }
     }
 
+
+
+    //Laver file for dagen til at lagre ordrer på dagen
     public static void DagensFil() {
 
     DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
