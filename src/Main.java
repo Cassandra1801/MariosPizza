@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalTime;
@@ -10,6 +13,8 @@ public class Main {
     public static boolean aabent = true;
 
     public static void main(String[] args) throws InterruptedException {
+
+        DagensFil();
 
         while (aabent == true) {
 
@@ -59,6 +64,24 @@ public class Main {
 
             Scanner input = new Scanner(System.in);
             input.nextLine();
+        }
+    }
+
+    public static void DagensFil() {
+
+    DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    String date = LocalDateTime.now().format(formatter);
+
+        try {
+            File myObj = new File(date + ".txt"); // Create File object
+            if (myObj.createNewFile()) {           // Try to create the file
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace(); // Print error details
         }
     }
 }
