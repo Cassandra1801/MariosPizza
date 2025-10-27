@@ -15,10 +15,13 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
+        //Laver fil når dagen starter (DD-MM-YYYY.txt)
         DagensFil();
 
+        //loop der gør at man altid returnerer til startmenu og udskriver pizza menuen
         while (aabent == true) {
 
+            //Udskriver pizza menu
             List<PizzaMenuObj> pizzaMenuObj = new ArrayList<>();
             pizzaMenuObj = FileUtil.readPizzaFromFile();
 
@@ -67,12 +70,14 @@ public class Main {
 
             System.out.println("=== Start Menu =================================");
 
+            //scanner der tager input til start menu
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();                       //inputtet må lagres som en string variabel, for ellers vil equals ikke læse det
 
+            //Start menu elementer for hvert if statement
+                //Laver en ny ordre
             if (input.equals("new")) {                          //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
                 System.out.println("Laver ny");
-                System.out.println("Bestilling:");
 
                 String hvilkePizza;
                 int tid;
@@ -82,14 +87,16 @@ public class Main {
                 Scanner scTid = new Scanner(System.in);
                 Scanner scNavn = new Scanner(System.in);
 
+                //input for bestillingen
+                System.out.println("Bestilling:");
                 hvilkePizza = scPizza.nextLine();
 
+                //input for tiden på bestillingen
                 System.out.println("Tid:");
-
                 tid = Integer.parseInt(scTid.nextLine());
 
+                //input for navn på bestillingen
                 System.out.println("Navn:");
-
                 navn = scNavn.nextLine();
 
                 System.out.println(hvilkePizza + " " + tid + " min " + navn + " ");
@@ -103,22 +110,24 @@ public class Main {
                 }
 
                 System.out.println("Ordre er lavet");
+                System.out.println(" ");
 
 
                 /// Tilføjer til filen fra inputc
 
             } else if (input.equals("sluk")) {
-                System.out.println("Slukker");
+                System.out.println("slukker");
                 aabent = false;
-            } else if (input.equals("Help")) {
-                System.out.println("new");
-                System.out.println("sluk");
+
+            } else if (input.equals("help")) { //mulige kommandoer
+
                 System.out.println("help");
-            } else {
-                System.out.println("Prøv i stedet følgende:");
-                System.out.println("new");
                 System.out.println("sluk");
-                System.out.println("help");
+                System.out.println("new");
+
+            } else{
+                System.out.println("Prøv igen. Brug help kommandoen."); // Bruges hvis de laver fx en stavefejl.
+
             }
         }
     }
