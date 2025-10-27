@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -62,12 +63,16 @@ public class Main {
 
              */
 
+            System.out.println(" ");
+
+            System.out.println("=== Start Menu =================================");
+
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();                       //inputtet må lagres som en string variabel, for ellers vil equals ikke læse det
 
             if (input.equals("new")) {                          //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
                 System.out.println("Laver ny");
-
+                System.out.println("Bestilling:");
 
                 String hvilkePizza;
                 int tid;
@@ -78,11 +83,26 @@ public class Main {
                 Scanner scNavn = new Scanner(System.in);
 
                 hvilkePizza = scPizza.nextLine();
+
+                System.out.println("Tid:");
+
                 tid = Integer.parseInt(scTid.nextLine());
+
+                System.out.println("Navn:");
+
                 navn = scNavn.nextLine();
 
                 System.out.println(hvilkePizza + " " + tid + " min " + navn + " ");
 
+                // true = append mode
+                try (FileWriter myWriter = new FileWriter(date + ".txt", true)) {
+                    myWriter.write(hvilkePizza + "_" + tid + "_" + navn + "_null" + "\n");
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+
+                System.out.println("Ordre er lavet");
 
 
                 /// Tilføjer til filen fra inputc
@@ -104,13 +124,13 @@ public class Main {
     }
 
 
+    //Finder datoen
+    public static DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static String date = LocalDateTime.now().format(formatter);
 
-                                                                                              //Laver file for dagen til at lagre ordrer på dagen
+
+    //Laver file for dagen til at lagre ordrer på dagen
     public static void DagensFil() {
-
-    DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    String date = LocalDateTime.now().format(formatter);
-
         try {
             File myObj = new File(date + ".txt");                                            // Create File object
             if (myObj.createNewFile()) {                                                    // Try to create the file
