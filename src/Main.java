@@ -68,7 +68,7 @@ public class Main {
 
             System.out.println(" ");
 
-            System.out.println("=== Start Menu =================================");
+            System.out.println("Indtast New, for ny ordre. Sluk for at systemet slukker og Help for andet.");
 
             //scanner der tager input til start menu
             Scanner sc = new Scanner(System.in);
@@ -76,7 +76,7 @@ public class Main {
 
             //Start menu elementer for hvert if statement
                 //Laver en ny ordre
-            if (input.equals("new")) {                          //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
+            if (input.equals("New")) {                          //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
                 System.out.println("Laver ny");
 
                 String hvilkePizza;
@@ -115,15 +115,15 @@ public class Main {
 
                 /// Tilføjer til filen fra inputc
 
-            } else if (input.equals("sluk")) {
-                System.out.println("slukker");
+            } else if (input.equals("Sluk")) {
+                System.out.println("Slukker");
                 aabent = false;
 
-            } else if (input.equals("help")) { //mulige kommandoer
+            } else if (input.equals("Help")) { //mulige kommandoer
 
-                System.out.println("help");
-                System.out.println("sluk");
-                System.out.println("new");
+                System.out.println("Help");
+                System.out.println("Sluk");
+                System.out.println("New");
 
             } else{
                 System.out.println("Prøv igen. Brug help kommandoen."); // Bruges hvis de laver fx en stavefejl.
