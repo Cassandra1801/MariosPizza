@@ -104,6 +104,7 @@ public class Main {
             System.out.println(" ");
 
             System.out.println("=== Start Menu =================================");
+            System.out.println("Indtast new, for ny ordre, og sluk for at systemet slukker og help for mulige kommandoer");
 
             //scanner der tager input til start menu
             Scanner sc = new Scanner(System.in);
@@ -156,9 +157,9 @@ public class Main {
 
             } else if (input.equals("help")) { //mulige kommandoer
 
-                System.out.println("help");
-                System.out.println("sluk");
                 System.out.println("new");
+                System.out.println("sluk");
+                System.out.println("help");
 
             } else{
                 System.out.println("Prøv igen. Brug help kommandoen."); // Bruges hvis de laver fx en stavefejl.
