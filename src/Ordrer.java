@@ -16,8 +16,7 @@ public class Ordrer {
 
 
     // Constructer
-    public Ordrer(int pizzaer, int afhentning, LocalTime ordreLavet, int ordreID,
-                  boolean pizzaKlar) {
+    public Ordrer(int pizzaer, int afhentning, LocalTime ordreLavet, int ordreID, boolean pizzaKlar) {
 
         this.pizzaer = pizzaer;
         this.afhentning = afhentning;
