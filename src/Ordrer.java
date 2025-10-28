@@ -3,31 +3,32 @@ import java.time.Duration;
 import java.time.LocalTime;
 
 public class Ordrer {
+
     // Default constructor
     public Ordrer() {
     }
 
     //Variabler
-    private int pizzaer;
+    private String pizzaer;
     private int afhentning;
     private LocalTime ordreLavet;
-    private int ordreID;
+    private String navn;
     private boolean pizzaKlar;
 
 
     // Constructer
-    public Ordrer(int pizzaer, int afhentning, LocalTime ordreLavet, int ordreID, boolean pizzaKlar) {
+    public Ordrer(String pizzaer, int afhentning, LocalTime ordreLavet, String navn, boolean pizzaKlar) {
 
         this.pizzaer = pizzaer;
         this.afhentning = afhentning;
         this.ordreLavet = ordreLavet;
-        this.ordreID = ordreID;
+        this.navn = navn;
         this.pizzaKlar = pizzaKlar;
     }
 
 
     //getPizza
-    public int getPizzaer() {
+    public String getPizzaer() {
         return pizzaer;
     }
 
@@ -39,8 +40,8 @@ public class Ordrer {
         return ordreLavet;
     }
 
-    public int getOrdreID() {
-        return ordreID;
+    public String getNavn() {
+        return navn;
     }
 
     public boolean getPizzaKlar() {
@@ -48,14 +49,17 @@ public class Ordrer {
     }
 
     public LocalTime getOrdreFaerdig() {
-        LocalTime ordreFaerdig = getOrdreLavet().plusMinutes(getAfhentning());
-        return ordreFaerdig;
+        return ordreLavet.plusMinutes(afhentning);
     }
 
     //Differencen mellem hvornår den skal være færdig og den reelle tid
-    public Duration Difference() {
-        Duration forskel = Duration.between(getOrdreFaerdig(), getOrdreLavet());
-        return forskel;
+    public Duration getDifference() {
+        return Duration.between(LocalTime.now(), getOrdreFaerdig());
+    }
+
+    @Override
+    public String toString() {
+        return pizzaer + " (" + afhentning + " min) | bestilt: " + ordreLavet + " | navn: " + navn + " | status: " + (pizzaKlar ? "HENTET" : "AFVENTER");
     }
 }
 
