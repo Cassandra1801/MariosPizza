@@ -1,7 +1,9 @@
+import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,43 +17,55 @@ public class Main {
     //Boolean for at holde while loop kørende
     public static boolean aabent = true;
 
-    //Finder datoen
-    public static DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    public static String datoen = LocalDateTime.now().format(formatter);
+    public static DateTimeFormatter MAANED_FMT = DateTimeFormatter.ofPattern("yyyy-MM");
+    public static DateTimeFormatter DATO_FMT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static DateTimeFormatter TID_FMT = DateTimeFormatter.ofPattern("HH:mm");
 
-    public static String getDate() {
-        return datoen;
+    public static String getMaanedNu()  {return LocalDate.now().format(MAANED_FMT);}
+    public static String getDato()      {return LocalDate.now().format(DATO_FMT);}
+    public static String getTid()       {return LocalDateTime.now().format(TID_FMT);}
+
+    public static File MappeForMaaned() {
+        //Lav filstruktur; logs/2025-10/log_2025-10-27.txt
+        String baseFolder = "Logs";
+        String folderPath = baseFolder + "/" + getMaanedNu();
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+        return folder;
     }
 
-    //Laver file for dagen til at lagre ordrer på dagen
-    public static void DagensFil() {
+    public static File DagensFil(File monthFolder) {
+        File f = new File(monthFolder, "log_" + getDato() + ".txt");                                  // Create File object
         try {
-            File myObj = new File(getDate() + ".txt");                                            // Create File object
-            if (myObj.createNewFile()) {                                                    // Try to create the file
-                System.out.println("File created: " + myObj.getName());
+            if (f.createNewFile()) {                                                                   // Try to create the file
+                System.out.println("File created: " + f.getPath());
             } else {
-                System.out.println("File already exists.");
+                System.out.println("File already exists." + f.getPath());
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
-            e.printStackTrace();                                                            // Print error details
+            e.printStackTrace();                                                                          // Print error details
+        }
+        return f;
+    }
+
+    //Append en linje til dagens fil
+    public static void appendLine(File file, String line) {
+        try (FileWriter myWriter = new FileWriter(file , true)) {
+            myWriter.write(line + System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 
-    //Finder tiden
-    public static DateTimeFormatter timeFormatter =  DateTimeFormatter.ofPattern("HH:mm");
-    public static String tidenNu = LocalDateTime.now().format(timeFormatter);
+    public static void main(String[] args) {
 
-    public static String getTime() {
-        return tidenNu;
-    }
-
-
-
-    public static void main(String[] args) throws InterruptedException {
-
-        //Laver fil når dagen starter (DD-MM-YYYY.txt)
-        DagensFil();
+        //Mappe + dagsfil
+        File monthFolder = MappeForMaaned();
+        File dagensFil = DagensFil(monthFolder);
 
         //loop der gør at man altid returnerer til startmenu og udskriver pizza menuen
         while (aabent == true) {
@@ -111,7 +125,7 @@ public class Main {
 
             //Start menu elementer for hvert if statement
             //Laver en ny ordre
-            if (input.equals("New")) {                          //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
+            if (input.equals("new")) {                          //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
                 System.out.println("Laver ny");
 
                 String hvilkePizza;
@@ -123,7 +137,7 @@ public class Main {
                 Scanner scNavn = new Scanner(System.in);
 
                 //input for bestillingen
-                System.out.println("Bestilling:         (I format ANTALxTYPE, sepparer typer med et mellemrum) ");
+                System.out.println("Bestilling: "); //I format ANTALxTYPE, separer typer med et mellemrum
                 hvilkePizza = scPizza.nextLine();
 
                 //input for tiden på bestillingen
@@ -136,35 +150,30 @@ public class Main {
 
                 System.out.println(hvilkePizza + " " + tid + " min " + navn + " ");
 
-                // true = append mode
-                try (FileWriter myWriter = new FileWriter(getDate() + ".txt", true)) {
-                    myWriter.write(hvilkePizza + "_" + tid + "_" + getTime() + "_" + navn + "_" + "false" + "\n");
-                } catch (IOException e) {
-                    System.out.println("An error occurred.");
-                    e.printStackTrace();
-                }
+                //Skriver i filen
+                String linje = hvilkePizza + "_" + tid + "_" + getTid() + "_" + navn + "_" + "false";
+                appendLine(dagensFil, linje);
 
                 System.out.println("Ordre er lavet");
                 System.out.println(" ");
 
 
-                /// Tilføjer til filen fra inputc
+                //Tilføjer til filen fra input
 
             } else if (input.equals("Sluk")) {
                 System.out.println("Slukker");
                 aabent = false;
 
-            } else if (input.equals("Help")) { //mulige kommandoer
+            } else if (input.equals("Help")) {                                                         //mulige kommandoer
 
                 System.out.println("Help");
                 System.out.println("Sluk");
                 System.out.println("New");
 
             } else{
-                System.out.println("Prøv igen. Brug help kommandoen."); // Bruges hvis de laver fx en stavefejl.
+                System.out.println("Prøv igen. Brug help kommandoen.");                              // Bruges hvis de laver fx en stavefejl.
 
             }
         }
     }
-
 }
