@@ -14,11 +14,16 @@ public class Ordrer {
     private LocalTime ordreLavet;
     private String navn;
     private boolean pizzaKlar;
+    private double totalPris;
+    private double pris;
+    private double prisIkkeKlar = 0.0;
 
+    public void setPizzaKlar(boolean pizzaKlar) {
+        this.pizzaKlar = pizzaKlar;
+    }
 
     // Constructer
-    public Ordrer(String pizzaer, int afhentning, LocalTime ordreLavet, String navn, boolean pizzaKlar) {
-
+    public Ordrer(String pizzaer, int afhentning, LocalTime ordreLavet, String navn, boolean pizzaKlar, double totalPris, double prisIkkeKlar) {
         this.pizzaer = pizzaer;
         this.afhentning = afhentning;
         this.ordreLavet = ordreLavet;
@@ -52,6 +57,18 @@ public class Ordrer {
         return ordreLavet.plusMinutes(afhentning);
     }
 
+    public double getPris() {
+        return pris;
+    }
+
+    public double getTotalPris() {
+        if (pizzaKlar) {
+            return pris * pizzaer;
+        } else {
+            return prisIkkeKlar;
+        }
+    }
+
     //Differencen mellem hvornår den skal være færdig og den reelle tid
     public Duration getDifference() {
         return Duration.between(LocalTime.now(), getOrdreFaerdig());
@@ -62,20 +79,3 @@ public class Ordrer {
         return pizzaer + " (" + afhentning + " min) | bestilt: " + ordreLavet + " | navn: " + navn + " | status: " + (pizzaKlar ? "HENTET" : "AFVENTER");
     }
 }
-
-    /*
-
-    Ordrer objekt
-
-    Det data som er i filen
-    - pizzaer
-    - tid til afhentning
-    - tidspunktet ordren er lavet
-    - tidspunktet ordren skal være færdig
-    - ordreID (navn)
-    - boolean for om ordren er færdig eller ikke (true = færdig)
-
-    data som skal findes via givet data
-    - differencen mellem tidspunktet den skal være færdig og det reelle klokkeslæt
-
-     */

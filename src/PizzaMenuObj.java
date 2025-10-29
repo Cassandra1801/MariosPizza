@@ -7,14 +7,14 @@ public class PizzaMenuObj {
     private int pizzaID;
     private String navn;
     private String toppings;
-    private double pris;
+    private double totalPris;
 
     //PizzaMenu constructor
     public PizzaMenuObj (int pizzaID, String navn, String toppings, double pris){
         this.pizzaID = pizzaID;
         this.navn = navn;
         this.toppings = toppings;
-        this.pris = pris;
+        this.totalPris = pris;
     }
 
     //GetPizzaID
@@ -34,13 +34,13 @@ public class PizzaMenuObj {
 
     //GetPris
     public double getPris() {
-        return pris;
+        return totalPris;
     }
 
     //ToString af menuen
     @Override
     public String toString() {
-        return pizzaID + ". " + navn + ": " + toppings + " | " + pris + " kr.";
+        return pizzaID + ". " + navn + ": " + toppings + " | " + totalPris + " kr.";
     }
 }
 
