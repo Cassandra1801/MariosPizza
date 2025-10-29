@@ -5,6 +5,7 @@ import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FileUtilOrders {
@@ -13,13 +14,17 @@ public class FileUtilOrders {
         String deling = "_";                                                                                            //Dette er den definerede deler
         String line = "";
         String ordreFil = "Logs/" + Main.getMaanedNu() + "/log_" + Main.getDato() + ".txt";                             //Reference til hvilken fil
+        System.out.println("[DEBUG] Forsøger at læse: " + ordreFil);
         List<Ordrer> ordreList = new ArrayList<>();                                                                     //Laver en array liste
         DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm");
 
         try(BufferedReader br = new BufferedReader(new FileReader(ordreFil))){                                          //Læser fra fil
             while((line = br.readLine()) != null) {
+                System.out.println("[DEBUG] Læser linje: " + line);
                 String[] data = line.split(deling);                                                                     //Bruger deleren til at skille mellem data på linjen
-                if (data.length < 6) continue;
+                System.out.println("[PARSE] " + line + "->" + Arrays.toString(data));
+                if (data.length < 5) continue;
+                System.out.println("[WARN] Ugyldig linje springes over.");
 
                 String pizzaer = data[0];                                                                               //Sætter variabel til data på index 0
                 int afhentning = Integer.parseInt(data[1]);                                                             //Sætter variabel til data på index 1
@@ -27,7 +32,13 @@ public class FileUtilOrders {
                 String navn = data[3];                                                                                  //Sætter variabel til data på index 3
                 boolean pizzaKlar = Boolean.parseBoolean(data[4]);                                                      //Sætter variabel til data på index 4
 
-                double totalPris = Double.parseDouble(data[5]);
+                double totalPris = 0.0;
+                //Kun læs data[5] hvis det eksistere
+                if (data.length == 6) {
+                    try {
+                        totalPris = Double.parseDouble(data[5]);
+                    } catch (NumberFormatException ignore) {}
+                }
 
                 double prisIkkeKlar = pizzaKlar ? totalPris : 0.0;
 
@@ -37,6 +48,7 @@ public class FileUtilOrders {
         } catch (IOException e) {                                                                                       //Checker for fejl
             System.out.println("Kunne ikke læse fil: " + e.getMessage());
         }
+        System.out.println("[DEBUG] Anatal ordre fundet: " + ordreList.size());
         return ordreList;                                                                                               //Returnerer array listen
     }
 }
