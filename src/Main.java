@@ -107,7 +107,7 @@ public class Main {
 
 
             //Start menu elementer for hvert if statement
-            if (input.equalsIgnoreCase("New")) {                                                            //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
+            if (input.equalsIgnoreCase("New")) {                                                                        //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
                 System.out.println("Laver ny ordre");                                                                         //Laver en ny ordre
 
 
@@ -116,7 +116,7 @@ public class Main {
 
 
                 String hvilkePizza = findFlerePizzaer(pizzaInput, pizzaMenuObj);
-                System.out.println("Du har valgt: " + hvilkePizza);                                                     //Vis hvilken pizza der blev valgt
+                System.out.println("Du har valgt: " + hvilkePizza);//Vis hvilken pizza der blev valgt
 
 
                 System.out.println("Tid:");                                                                             //Input for tiden på bestillingen
@@ -183,27 +183,26 @@ public class Main {
                 }
 
                 antalMap.put(id, antalMap.getOrDefault(id, 0) + antal);
-
             } catch (Exception e) {
                 System.out.println("Ugyldigt input: " + d);
             }
         }
 
         StringBuilder sb = new StringBuilder();                                                                         //Bygger resultattekst
+        double totalPris = 0;
+
         for (Map.Entry<Integer, Integer> entry : antalMap.entrySet()) {
             int id = entry.getKey();
             int antal = entry.getValue();
 
             PizzaMenuObj p = findPizzaById(id, menu);                                                                   //Find pizza fra menukort
             if (p != null) {
-                double totalPris = antal * p.getPris();
+                double pizzaPris = p.getTotalPris();
+                totalPris += pizzaPris * antal;                                                                         //Læg prisen sammen
                 sb.append(antal).append("x").append(p.getNavn()).append(" ");
-                sb.append(totalPris);
-                sb.append(" kr. ");
-            } else {
-                sb.append(antal).append("xUkendtPizza#").append(id).append(" ");
             }
         }
+        System.out.println("Samlet pris: " + totalPris + " kr.");                                                       //Udskriver total
         return sb.toString().trim();
     }
 }

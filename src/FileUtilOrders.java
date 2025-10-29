@@ -26,6 +26,7 @@ public class FileUtilOrders {
                 LocalTime ordreLavet = LocalTime.parse(data[2], timeFmt);                                               //Sætter variabel til data på index 2
                 String navn = data[3];                                                                                  //Sætter variabel til data på index 3
                 boolean pizzaKlar = Boolean.parseBoolean(data[4]);                                                      //Sætter variabel til data på index 4
+
                 double totalPris = Double.parseDouble(data[5]);
 
                 double prisIkkeKlar = pizzaKlar ? totalPris : 0.0;

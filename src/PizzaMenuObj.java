@@ -1,7 +1,8 @@
 public class PizzaMenuObj {
 
     //Default constructor
-    public PizzaMenuObj() {}
+    public PizzaMenuObj() {
+    }
 
     //Variabler
     private int pizzaID;
@@ -10,7 +11,7 @@ public class PizzaMenuObj {
     private double totalPris;
 
     //PizzaMenu constructor
-    public PizzaMenuObj (int pizzaID, String navn, String toppings, double pris){
+    public PizzaMenuObj(int pizzaID, String navn, String toppings, double pris) {
         this.pizzaID = pizzaID;
         this.navn = navn;
         this.toppings = toppings;
@@ -32,10 +33,12 @@ public class PizzaMenuObj {
         return toppings;
     }
 
-    //GetPris
-    public double getPris() {
+    public double getTotalPris() {
         return totalPris;
     }
+
+
+
 
     //ToString af menuen
     @Override
