@@ -19,8 +19,8 @@ public class FileUtil {
                 int pizzaID = Integer.parseInt(data[0]);                                                                //Sætter variabel til data på index 0
                 String navn = data[1];                                                                                  //Sætter variabel til data på index 1
                 String toppings = data[2];                                                                              //Sætter variabel til data på index 2
-                double pris = Double.parseDouble(data[3]);                                                              //Sætter variabel til data på index 3
-                PizzaMenuObj pizzaMenuObj = new PizzaMenuObj(pizzaID, navn, toppings, pris);                            //Indsætter det forrige data til et pizzaMenuObj objekt
+                double totalPris = Double.parseDouble(data[3]);                                                         //Sætter variabel til data på index 3
+                PizzaMenuObj pizzaMenuObj = new PizzaMenuObj(pizzaID, navn, toppings, totalPris);                       //Indsætter det forrige data til et pizzaMenuObj objekt
                 menukort.add(pizzaMenuObj);                                                                             //Indsætter det objekt ind i array listen
             }
         } catch (IOException e) {                                                                                       //Checker for fejl

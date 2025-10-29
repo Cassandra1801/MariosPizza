@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public class Ordrer {
 
-    // Default constructor
+    //Default constructor
     public Ordrer() {
     }
 
@@ -14,11 +14,11 @@ public class Ordrer {
     private LocalTime ordreLavet;
     private String navn;
     private boolean pizzaKlar;
+    private double totalPris;
 
 
-    // Constructer
-    public Ordrer(String pizzaer, int afhentning, LocalTime ordreLavet, String navn, boolean pizzaKlar) {
-
+    //Constructer
+    public Ordrer(String pizzaer, int afhentning, LocalTime ordreLavet, String navn, boolean pizzaKlar, double totalPris, double prisIkkeKlar) {
         this.pizzaer = pizzaer;
         this.afhentning = afhentning;
         this.ordreLavet = ordreLavet;
@@ -26,8 +26,7 @@ public class Ordrer {
         this.pizzaKlar = pizzaKlar;
     }
 
-
-    //getPizza
+    //Gettere
     public String getPizzaer() {
         return pizzaer;
     }
@@ -48,9 +47,11 @@ public class Ordrer {
         return pizzaKlar;
     }
 
+    //Færdig tidspunkt
     public LocalTime getOrdreFaerdig() {
         return ordreLavet.plusMinutes(afhentning);
     }
+
 
     //Differencen mellem hvornår den skal være færdig og den reelle tid
     public Duration getDifference() {
@@ -62,20 +63,3 @@ public class Ordrer {
         return pizzaer + " (" + afhentning + " min) | bestilt: " + ordreLavet + " | navn: " + navn + " | status: " + (pizzaKlar ? "HENTET" : "AFVENTER");
     }
 }
-
-    /*
-
-    Ordrer objekt
-
-    Det data som er i filen
-    - pizzaer
-    - tid til afhentning
-    - tidspunktet ordren er lavet
-    - tidspunktet ordren skal være færdig
-    - ordreID (navn)
-    - boolean for om ordren er færdig eller ikke (true = færdig)
-
-    data som skal findes via givet data
-    - differencen mellem tidspunktet den skal være færdig og det reelle klokkeslæt
-
-     */
