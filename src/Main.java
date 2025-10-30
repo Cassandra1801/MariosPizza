@@ -15,9 +15,7 @@ import java.nio.file.Path;
 import java.time.LocalTime;
 
 
-
 public class Main {
-
 
     public static boolean aabent = true;                                                                                //Boolean for at holde while loop kørende
 
@@ -38,7 +36,7 @@ public class Main {
     }
 
     public static File MappeForMaaned() {
-                                                                                                                        //Lav filstruktur; logs/2025-10/log_2025-10-27.txt
+        //Lav filstruktur; logs/2025-10/log_2025-10-27.txt
         String baseFolder = "Logs";
         String folderPath = baseFolder + "/" + getMaanedNu();
         File folder = new File(folderPath);
@@ -85,11 +83,12 @@ public class Main {
         for (int i = 0; i < lines.size(); i++) {
             String[] fields = lines.get(i).split("_");                                                            //Læser hver linje, og deler den op med _.
 
+            // !!!! Vi har en fejl, da man kan have flere af samme navne !!!!
             if (fields[3].equalsIgnoreCase(targetName)) {                                                               //Leder i data[3], for at finde det der tilsvarer input
                 fields[targetFieldIndex] = newValue;                                                                    //Opdaterer data[4] som er booleanen
                 String updatedLine = String.join("_", fields);                                                  //laver teksten linjen skal opdateres til
                 lines.set(i, updatedLine);                                                                              //Opdaterer linje i til updatedLine
-                break; // stop after first match                                                                        //Stopper om den finder den rigtige ordre
+                break;                                                                                                  //Stopper om den finder den rigtige ordre
             }
         }
 
@@ -105,95 +104,17 @@ public class Main {
         scAny.nextLine();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static class PizzaBestilling {
+        String pizzaTekst;
+        double totalPris;
 
-        File monthFolder = MappeForMaaned();                                                                            //Mappe for månederne
-        File dagensFil = DagensFil(monthFolder);                                                                        //Filer for dags dato
-
-        Scanner sc = new Scanner(System.in);                                                                            //Scanner der tager input til start menu
-
-
-
-        while (aabent == true) {                                                                                        //Loop der gør at man altid returnerer til startmenu og udskriver pizza menuen
-
-
-            List<PizzaMenuObj> pizzaMenuObj = new ArrayList<>();                                                        //Udskriver pizza menu
-            pizzaMenuObj = FileUtil.readPizzaFromFile();
-
-            for (PizzaMenuObj p : pizzaMenuObj) {
-                System.out.println(p);
-            }
-
-            //Printer ordrerne ud, og sorterer dem
-            List<Ordrer> ordrerList = new ArrayList<>();
-            ordrerList.sort(Comparator.comparing(Ordrer::getDifference).reversed());                                    //Sorterer
-            System.out.println("\nAktive ordrer:");
-            for (Ordrer o : ordrerList) {
-                System.out.println(o.getDifference() + " | " + o.getPizzaer() + " | " + o.getNavn());
-            }
-
-
-            System.out.println(" ");
-
-            System.out.println("INDTAST EN KOMMANDO - Brug 'Help' for at se muligheder - Tryk enter for at opdatere.");
-
-            String input = sc.nextLine();                                                                               //Inputtet lagres som en string variabel, for ellers vil equals ikke læse det
-
-
-                                                                                                                        //Start menu elementer for hvert if statement
-            if (input.equalsIgnoreCase("New")) {                                                            //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
-                System.out.println("Laver ny ordre");                                                                   //Laver en ny ordre
-
-
-                System.out.println("Bestilling (indtast pizzanummer adskilt med mellemrum): ");                         //Input for bestillingen
-                String pizzaInput = sc.nextLine();
-
-
-                String hvilkePizza = findFlerePizzaer(pizzaInput, pizzaMenuObj);
-                System.out.println("Du har valgt: " + hvilkePizza);                                                     //Viser hvilken pizza der blev valgt
-
-
-                System.out.println("Tid:");                                                                             //Input for tiden på bestillingen
-                int tid = Integer.parseInt(sc.nextLine());
-
-
-                System.out.println("Navn:");                                                                            //Input for navn på bestillingen
-                String navn = sc.nextLine();
-
-
-                String linje = hvilkePizza + "_" + tid + "_" + getTid() + "_" + navn + "_" + "false";                   //Finder og formaterer pizzaerne
-                appendLine(dagensFil, linje);                                                                           //Skriver i dags dato filen
-
-                System.out.println("Skriv Done, når ordren er færdig\n");
-
-                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
-
-            } else if (input.equalsIgnoreCase("Done")) {
-                System.out.println("Indtast navn på den ordre, der er færdig: ");
-                String navn = sc.nextLine();
-                updateOrdreFaerdig(navn);                                                                               //Kalder funktionen som opdaterer ordren via input
-
-                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
-
-            } else if (input.equalsIgnoreCase("Sluk")) {
-                System.out.println("Slukker");
-                aabent = false;
-
-            } else if (input.equalsIgnoreCase("Help")) {                                                    //Mulige kommandoer
-                System.out.println("New\nDone\nSluk\nHelp");
-
-                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
-
-            } else if (input.equalsIgnoreCase("")) {
-
-            } else {
-                System.out.println("Prøv igen. Brug Help kommandoen.");                                                 //Bruges hvis de laver fx en stavefejl.
-
-                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
-
-            }
+        public PizzaBestilling(String pizzaTekst, double totalPris) {
+            this.pizzaTekst = pizzaTekst;
+            this.totalPris = totalPris;
         }
+
     }
+
 
     public static PizzaMenuObj findPizzaById(int id, List<PizzaMenuObj> menu) {
         for (PizzaMenuObj p : menu) {
@@ -204,7 +125,7 @@ public class Main {
         return null;                                                                                                    //Hvis ikke fundet
     }
 
-    public static String findFlerePizzaer(String input, List<PizzaMenuObj> menu) {
+    public static PizzaBestilling findFlerePizzaer(String input, List<PizzaMenuObj> menu) {
         String[] dele = input.split("\\s+");                                                                      //Split mellemrum
         Map<Integer, Integer> antalMap = new HashMap<>();
 
@@ -243,7 +164,7 @@ public class Main {
             }
         }
         System.out.println("Samlet pris: " + totalPris + " kr.");                                                       //Udskriver total
-        return sb.toString().trim();
+        return new PizzaBestilling(sb.toString().trim(), totalPris);
     }
 
     public static void ordreKlar(File dagensFil, String navn) {
@@ -253,14 +174,14 @@ public class Main {
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                                                                                                                        // Hvis linjen indeholder kundens navn og stadig er false → sæt den til true
+                // Hvis linjen indeholder kundens navn og stadig er false → sæt den til true
                 if (line.contains("_" + navn + "_false")) {
                     line = line.replace("_" + navn + "_false", "_" + navn + "_true");
                     System.out.println("Ordren for " + navn + " er nu markeret som færdig!");
                 }
                 linjer.add(line);
             }
-                                                                                                                        // Skriv filen tilbage (overskriv hele filen)
+            // Skriv filen tilbage (overskriv hele filen)
             FileWriter writer = new FileWriter(dagensFil, false);
             for (String l : linjer) {
                 writer.write(l + System.lineSeparator());
@@ -270,44 +191,130 @@ public class Main {
             System.out.println("Fejl ved opdatering af ordre: " + e.getMessage());
         }
     }
-}
 
 
+    /// MAIN KLASSEN //////////////////////////////////////////////////////////////////////////////////
+    public static void main(String[] args) throws IOException {
+
+        File monthFolder = MappeForMaaned();                                                                            //Mappe for månederne
+        File dagensFil = DagensFil(monthFolder);                                                                        //Filer for dags dato
+
+        Scanner sc = new Scanner(System.in);                                                                            //Scanner der tager input til start menu
 
 
- /*
-            /// Alt under her er det der får tiden til at tælle live ========================================
+        while (aabent == true) {                                                                                        //Loop der gør at man altid returnerer til startmenu og udskriver pizza menuen
 
-            // Sæt hvor lang tid leveringen tager (f.eks. 2 minutter)
-            int leveringMinutter = 2;
-            LocalTime leveringstid = LocalTime.now().plusMinutes(leveringMinutter);
+            ///Udskriver Menuen ======================================================================
+            List<PizzaMenuObj> pizzaMenuObj = new ArrayList<>();                                                        //Udskriver pizza menu
+            pizzaMenuObj = FileUtil.readPizzaFromFile();
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-            System.out.println("Leveringstidspunkt: " + leveringstid.format(formatter));
-            System.out.println("Nedtælling starter...\n");
-
-            while (true) {
-                LocalTime now = LocalTime.now();
-
-                // Beregn hvor lang tid der er tilbage
-                Duration diff = Duration.between(now, leveringstid);
-
-                long sekunderTilbage = diff.getSeconds();
-
-                if (sekunderTilbage <= 0) {
-                    System.out.print("\r🍕 Ordren er leveret!\n");
-                    break;
-                }
-
-                long minutter = sekunderTilbage / 60;
-                long sekunder = sekunderTilbage % 60;
-
-                System.out.print(
-                        String.format("\r⏳ %02d:%02d tilbage - 2x pepperoni", minutter, sekunder)
-                );
-
-                Thread.sleep(1000); // Opdater hvert sekund
+            for (PizzaMenuObj p : pizzaMenuObj) {
+                System.out.println(p);
             }
 
-             */
+            ///Printer Sorterede Ordrer ==============================================================
+            List<Ordrer> ordrerList = FileUtilOrders.readOrdreFromFile();
+            ordrerList.sort(Comparator.comparing(Ordrer::getDifference).reversed());                                    //Sorterer
+
+            // Holder på indtjening
+            double totalForDag = 0;
+            for (Ordrer ordre : ordrerList) {
+                if (ordre.getPizzaKlar()) {
+                    // Lægger indtjeningen sammen
+                    totalForDag += ordre.getTotalPris();
+                }
+            }
+
+            // Printer samlede resultat
+            System.out.println("Omsætningen for i dag: " + totalForDag);
+
+            System.out.println("\nAktive ordrer:");
+            for (Ordrer o : ordrerList) {
+                System.out.println(o.getDifference() + " | " + o.getPizzaer() + " | " + o.getNavn());
+            }
+
+            for (Ordrer o : ordrerList) {
+                // getOrdreFaerdig returnere timer og minuter
+                // Fejl i DATA
+                LocalTime test = o.getOrdreFaerdig();
+                int minutes = test.getMinute();
+
+                // Når fejlen er rettet, kan i bare bruge følgende:
+                LocalTime.now().minusMinutes(minutes);
+                System.out.println(minutes);
+                // !! Jeg formoder at i stadig kan bruge følgende:
+                Duration remaining = Duration.between(LocalTime.now(), o.getOrdreFaerdig());
+
+                if (!o.getPizzaKlar() && remaining.isNegative()) {                                                      //Tiden er gået
+                    System.out.println("Ordre klar: " + o.getNavn() + " | " + o.getPizzaer());
+                } else {
+                    System.out.println(o.getDifference() + " | " + o.getNavn() + " | " + o.getPizzaer());
+                }
+            }
+
+            System.out.println(" ");
+
+            System.out.println("INDTAST EN KOMMANDO - Brug 'Help' for at se muligheder - Tryk enter for at opdatere.");
+
+            String input = sc.nextLine();                                                                               //Inputtet lagres som en string variabel, for ellers vil equals ikke læse det
+
+
+            ///Command Line Mulighederne ============================================================
+
+            if (input.equalsIgnoreCase("New")) {                                                            //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
+                System.out.println("Laver ny ordre");                                                                   //Laver en ny ordre
+
+
+                System.out.println("Bestilling (indtast pizzanummer adskilt med mellemrum): ");                         //Input for bestillingen
+                String pizzaInput = sc.nextLine();
+
+                PizzaBestilling bestilling = findFlerePizzaer(pizzaInput, pizzaMenuObj);
+                System.out.println("Du har valgt: " + bestilling.pizzaTekst);                                           //Viser hvilken pizza der blev valgt
+
+
+                System.out.println("Tid:");                                                                             //Input for tiden på bestillingen
+                int tid = Integer.parseInt(sc.nextLine());
+
+
+                System.out.println("Navn:");                                                                            //Input for navn på bestillingen
+                String navn = sc.nextLine();
+
+
+                String linje = bestilling.pizzaTekst + "_" + tid + "_" + getTid() + "_" + navn + "_" + "false" + "_" + bestilling.totalPris;                   //Finder og formaterer pizzaerne
+                appendLine(dagensFil, linje);                                                                           //Skriver i dags dato filen
+
+                System.out.println("Skriv Done, når ordren er færdig\n");
+
+                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
+
+            } else if (input.equalsIgnoreCase("Done")) {
+                System.out.println("Indtast navn på den ordre, der er færdig: ");
+                String navn = sc.nextLine();
+                updateOrdreFaerdig(navn);                                                                               //Kalder funktionen som opdaterer ordren via input
+
+                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
+
+            } else if (input.equalsIgnoreCase("Sluk")) {
+                System.out.println("Slukker");
+                aabent = false;
+
+            } else if (input.equalsIgnoreCase("Omsætning")) {
+                System.out.println(totalForDag);
+
+
+            } else if (input.equalsIgnoreCase("Help")) {                                                    //Mulige kommandoer
+                System.out.println("New\nDone\nSluk\nOmsætning\nHelp");
+
+                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
+
+            } else if (input.equalsIgnoreCase("")) {
+
+            } else {
+                System.out.println("Prøv igen. Brug Help kommandoen.");                                                 //Bruges hvis de laver fx en stavefejl.
+
+                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
+
+            }
+        }
+    }
+}

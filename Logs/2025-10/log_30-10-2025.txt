@@ -1,3 +1,11 @@
-1xCarbona_10_01:49_toki_false_120.00
-1xCacciatore 2xCarbona_15_09:22_Cas_false
-1xCacciatore_15_09:30_Kad_true
+1xCarbona_10_01:49_toki_true_120.00
+1xCacciatore 2xCarbona_15_09:22_Cas_true_102.3
+1xCacciatore_15_09:30_Kad_true_12.0
+2xCarbona_15_10:50_Kome_true_126.0
+1xCacciatore_10_10:58_toki_false_57.0
+1xCacciatore_15_11:01_Per_true_57.0
+2xCacciatore_1_12:35_Pok_true_114.0
+2xCarbona_3_12:46_Thor_true_126.0
+4xCarbona_3_12:47_Odin_true_252.0
+2xCacciatore_2_13:08_Walt_true_114.0
+2xCarbona_1_13:09_Ilse_false_126.0

@@ -24,6 +24,7 @@ public class Ordrer {
         this.ordreLavet = ordreLavet;
         this.navn = navn;
         this.pizzaKlar = pizzaKlar;
+        this.totalPris = totalPris;
     }
 
     //Gettere
@@ -57,6 +58,10 @@ public class Ordrer {
         Duration diff = Duration.between(LocalTime.now(), getOrdreFaerdig());
         long minutes = diff.toMinutes();
         return String.format("%d min", minutes);
+    }
+
+    public double getTotalPris() {
+        return totalPris;
     }
 
     @Override

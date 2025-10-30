@@ -20,12 +20,20 @@ public class FileUtilOrders {
             while((line = br.readLine()) != null) {
                 String[] data = line.split(deling);                                                                     //Bruger deleren til at skille mellem data på linjen
 
+                if (data.length > 6) continue; //Spring ugyldige linjer over
+
                 String pizzaer = data[0];                                                                               //Sætter variabel til data på index 0
                 int afhentning = Integer.parseInt(data[1]);                                                             //Sætter variabel til data på index 1
                 LocalTime ordreLavet = LocalTime.parse(data[2], timeFmt);                                               //Sætter variabel til data på index 2
                 String navn = data[3];                                                                                  //Sætter variabel til data på index 3
                 boolean pizzaKlar = Boolean.parseBoolean(data[4]);                                                      //Sætter variabel til data på index 4
-                double totalPris = Double.parseDouble(data[5]);
+
+                double totalPris = 0.0;                                                                                 //Beskyt mod at totalPris mangler
+                if (data.length > 5) {
+                    totalPris = Double.parseDouble(data[5]);
+                }
+                //if (pizzaKlar) continue;                                                                                //Spring ordrer over som allerede er hentet(true)
+
                 double prisIkkeKlar = pizzaKlar ? totalPris : 0.0;
 
                 Ordrer ordre = new Ordrer(pizzaer, afhentning, ordreLavet, navn, pizzaKlar, totalPris, prisIkkeKlar);   //Indsætter det forrige data til et pizzaMenuObj objekt
