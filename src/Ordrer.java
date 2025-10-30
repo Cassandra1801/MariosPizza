@@ -56,7 +56,7 @@ public class Ordrer {
     //Differencen mellem hvornår den skal være færdig og den reelle tid i minutter
     public String getDifference() {
         if (pizzaKlar) {
-            return "færdig";
+            return "Færdig";
         }
             Duration diff = Duration.between(LocalTime.now(), getOrdreFaerdig());
         long minutes = diff.toMinutes();

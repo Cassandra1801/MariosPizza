@@ -8,4 +8,5 @@
 2xCarbona_3_12:46_Thor_true_126.0
 4xCarbona_3_12:47_Odin_true_252.0
 2xCacciatore_2_13:08_Walt_true_114.0
-2xCarbona_1_13:09_Ilse_false_126.0
+2xCarbona_1_13:09_Ilse_true_126.0
+2xCarbona_2_19:10_Loppe_true_126.0

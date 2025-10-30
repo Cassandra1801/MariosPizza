@@ -32,7 +32,7 @@ public class FileUtilOrders {
                 if (data.length > 5) {
                     totalPris = Double.parseDouble(data[5]);
                 }
-                //if (pizzaKlar) continue;                                                                                //Spring ordrer over som allerede er hentet(true)
+                //if (pizzaKlar) continue;                                                                              //Spring ordrer over som allerede er hentet(true)
 
                 double prisIkkeKlar = pizzaKlar ? totalPris : 0.0;
 

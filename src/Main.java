@@ -225,8 +225,12 @@ public class Main {
                 }
             }
 
+            System.out.println(" ");
+
             // Printer samlede resultat
             System.out.println("Omsætningen for i dag: " + totalForDag);
+
+
 
             System.out.println("\nAktive ordrer:");
             for (Ordrer o : ordrerList) {
@@ -239,11 +243,11 @@ public class Main {
                 LocalTime test = o.getOrdreFaerdig();
                 int minutes = test.getMinute();
 
-                // Når fejlen er rettet, kan i bare bruge følgende:
-                LocalTime.now().minusMinutes(minutes);
-                System.out.println(minutes);
-                // !! Jeg formoder at i stadig kan bruge følgende:
-                Duration remaining = Duration.between(LocalTime.now(), o.getOrdreFaerdig());
+//                // Når fejlen er rettet, kan i bare bruge følgende:
+//                LocalTime.now().minusMinutes(minutes);
+//                System.out.println(minutes);
+//                // !! Jeg formoder at i stadig kan bruge følgende:
+//                Duration remaining = Duration.between(LocalTime.now(), o.getOrdreFaerdig());
 
             }
 
