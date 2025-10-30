@@ -19,16 +19,13 @@ public class FileUtilOrders {
         try(BufferedReader br = new BufferedReader(new FileReader(ordreFil))){                                          //Læser fra fil
             while((line = br.readLine()) != null) {
                 String[] data = line.split(deling);                                                                     //Bruger deleren til at skille mellem data på linjen
-                if (data.length < 6) continue;
 
                 String pizzaer = data[0];                                                                               //Sætter variabel til data på index 0
                 int afhentning = Integer.parseInt(data[1]);                                                             //Sætter variabel til data på index 1
                 LocalTime ordreLavet = LocalTime.parse(data[2], timeFmt);                                               //Sætter variabel til data på index 2
                 String navn = data[3];                                                                                  //Sætter variabel til data på index 3
                 boolean pizzaKlar = Boolean.parseBoolean(data[4]);                                                      //Sætter variabel til data på index 4
-
                 double totalPris = Double.parseDouble(data[5]);
-
                 double prisIkkeKlar = pizzaKlar ? totalPris : 0.0;
 
                 Ordrer ordre = new Ordrer(pizzaer, afhentning, ordreLavet, navn, pizzaKlar, totalPris, prisIkkeKlar);   //Indsætter det forrige data til et pizzaMenuObj objekt

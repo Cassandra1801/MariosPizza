@@ -52,10 +52,11 @@ public class Ordrer {
         return ordreLavet.plusMinutes(afhentning);
     }
 
-
-    //Differencen mellem hvornår den skal være færdig og den reelle tid
-    public Duration getDifference() {
-        return Duration.between(LocalTime.now(), getOrdreFaerdig());
+    //Differencen mellem hvornår den skal være færdig og den reelle tid i minutter
+    public String getDifference() {
+        Duration diff = Duration.between(LocalTime.now(), getOrdreFaerdig());
+        long minutes = diff.toMinutes();
+        return String.format("%d min", minutes);
     }
 
     @Override

@@ -73,7 +73,39 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    //Opdaterer boolean for om en bestilling er klar til true, for et bestemt kunde ID
+    public static void updateOrdreFaerdig(String navn) throws IOException {
+        Path filePath = Path.of("Logs/" + getMaanedNu() + "/" + "log_" + getDato() + ".txt");                       //Finder den rigtige fil og kalder locationen filePath
+        List<String> lines = Files.readAllLines(filePath);
+
+        String targetName = navn;       // data[3]
+        String newValue = "true";       // new value for data[4]
+        int targetFieldIndex = 4;       // zero-based index (so 4 = 5th field)
+
+        for (int i = 0; i < lines.size(); i++) {
+            String[] fields = lines.get(i).split("_");                                                            //Læser hver linje, og deler den op med _.
+
+            if (fields[3].equalsIgnoreCase(targetName)) {                                                               //Leder i data[3], for at finde det der tilsvarer input
+                fields[targetFieldIndex] = newValue;                                                                    //Opdaterer data[4] som er booleanen
+                String updatedLine = String.join("_", fields);                                                  //laver teksten linjen skal opdateres til
+                lines.set(i, updatedLine);                                                                              //Opdaterer linje i til updatedLine
+                break; // stop after first match                                                                        //Stopper om den finder den rigtige ordre
+            }
+        }
+
+        // Write updated lines back to the file
+        Files.write(filePath, lines);                                                                                   //Indsætter det i filen
+        System.out.println("Ordre er blevet opdateret: " + targetName);
+    }
+
+    public static void trykEnKnap() {
+        Scanner scAny = new Scanner(System.in);
+        System.out.println("");
+        System.out.println("Tryk en knap for at fortsætte.");
+        scAny.nextLine();
+    }
+
+    public static void main(String[] args) throws IOException {
 
         File monthFolder = MappeForMaaned();                                                                            //Mappe for månederne
         File dagensFil = DagensFil(monthFolder);                                                                        //Filer for dags dato
@@ -92,17 +124,19 @@ public class Main {
                 System.out.println(p);
             }
 
+            //Printer ordrerne ud, og sorterer dem
             List<Ordrer> ordrerList = new ArrayList<>();
             ordrerList = FileUtilOrders.readOrdreFromFile();                                                            //Udskriver ordrer ud
+            ordrerList.sort(Comparator.comparing(Ordrer::getDifference).reversed());                                    //Sorterer
             System.out.println("\nAktive ordrer:");
             for (Ordrer o : ordrerList) {
-                System.out.println(o);
+                System.out.println(o.getDifference() + " | " + o.getPizzaer() + " | " + o.getNavn());
             }
 
 
             System.out.println(" ");
 
-            System.out.println("Indtast New, for ny ordre. Help for andet. SLuk for sluk systemet. Done for færdig ordre.");
+            System.out.println("INDTAST EN KOMMANDO - Brug 'Help' for at se muligheder - Tryk enter for at opdatere.");
 
             String input = sc.nextLine();                                                                               //Inputtet lagres som en string variabel, for ellers vil equals ikke læse det
 
@@ -131,29 +165,32 @@ public class Main {
                 String linje = hvilkePizza + "_" + tid + "_" + getTid() + "_" + navn + "_" + "false";                   //Finder og formaterer pizzaerne
                 appendLine(dagensFil, linje);                                                                           //Skriver i dags dato filen
 
-                System.out.println("Skrive Done, når ordren er lavet\n");
-                System.out.println(" ");
+                System.out.println("Skriv Done, når ordren er færdig\n");
 
+                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
 
             } else if (input.equalsIgnoreCase("Done")) {
                 System.out.println("Indtast navn på den ordre, der er færdig: ");
                 String navn = sc.nextLine();
+                updateOrdreFaerdig(navn);                                                                               //Kalder funktionen som opdaterer ordren via input
 
+                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
 
             } else if (input.equalsIgnoreCase("Sluk")) {
                 System.out.println("Slukker");
                 aabent = false;
 
-
             } else if (input.equalsIgnoreCase("Help")) {                                                    //Mulige kommandoer
+                System.out.println("New\nDone\nSluk\nHelp");
 
+                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
 
-                System.out.println("Help");
-                System.out.println("Sluk");
-                System.out.println("New");
+            } else if (input.equalsIgnoreCase("")) {
 
             } else {
                 System.out.println("Prøv igen. Brug Help kommandoen.");                                                 //Bruges hvis de laver fx en stavefejl.
+
+                trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
 
             }
         }
