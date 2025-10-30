@@ -245,11 +245,6 @@ public class Main {
                 // !! Jeg formoder at i stadig kan bruge følgende:
                 Duration remaining = Duration.between(LocalTime.now(), o.getOrdreFaerdig());
 
-                if (!o.getPizzaKlar() && remaining.isNegative()) {                                                      //Tiden er gået
-                    System.out.println("Ordre klar: " + o.getNavn() + " | " + o.getPizzaer());
-                } else {
-                    System.out.println(o.getDifference() + " | " + o.getNavn() + " | " + o.getPizzaer());
-                }
             }
 
             System.out.println(" ");
