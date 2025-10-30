@@ -243,24 +243,18 @@ public class Main {
                 LocalTime test = o.getOrdreFaerdig();
                 int minutes = test.getMinute();
 
-//                // Når fejlen er rettet, kan i bare bruge følgende:
-//                LocalTime.now().minusMinutes(minutes);
-//                System.out.println(minutes);
-//                // !! Jeg formoder at i stadig kan bruge følgende:
-//                Duration remaining = Duration.between(LocalTime.now(), o.getOrdreFaerdig());
-
             }
 
             System.out.println(" ");
 
-            System.out.println("INDTAST EN KOMMANDO - Brug 'Help' for at se muligheder - Tryk enter for at opdatere.");
+            System.out.println("INDTAST EN KOMMANDO - Brug 'Hjælp' for at se muligheder - Tryk enter for at opdatere.");
 
             String input = sc.nextLine();                                                                               //Inputtet lagres som en string variabel, for ellers vil equals ikke læse det
 
 
             ///Command Line Mulighederne ============================================================
 
-            if (input.equalsIgnoreCase("New")) {                                                            //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
+            if (input.equalsIgnoreCase("Ny")) {                                                            //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
                 System.out.println("Laver ny ordre");                                                                   //Laver en ny ordre
 
 
@@ -282,11 +276,11 @@ public class Main {
                 String linje = bestilling.pizzaTekst + "_" + tid + "_" + getTid() + "_" + navn + "_" + "false" + "_" + bestilling.totalPris;                   //Finder og formaterer pizzaerne
                 appendLine(dagensFil, linje);                                                                           //Skriver i dags dato filen
 
-                System.out.println("Skriv Done, når ordren er færdig\n");
+                System.out.println("Skriv Færdig, når ordren er færdig\n");
 
                 trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
 
-            } else if (input.equalsIgnoreCase("Done")) {
+            } else if (input.equalsIgnoreCase("Færdig")) {
                 System.out.println("Indtast navn på den ordre, der er færdig: ");
                 String navn = sc.nextLine();
                 updateOrdreFaerdig(navn);                                                                               //Kalder funktionen som opdaterer ordren via input
@@ -298,18 +292,22 @@ public class Main {
                 aabent = false;
 
             } else if (input.equalsIgnoreCase("Omsætning")) {
-                System.out.println(totalForDag);
+                System.out.println("Omsætning for i dag: " + totalForDag + " kr.");
 
 
-            } else if (input.equalsIgnoreCase("Help")) {                                                    //Mulige kommandoer
-                System.out.println("New\nDone\nSluk\nOmsætning\nHelp");
+                FileUtilOrders.visSolgtePizzaerPrType(ordrerList);
+
+                trykEnKnap();
+
+            } else if (input.equalsIgnoreCase("Hjælp")) {                                                    //Mulige kommandoer
+                System.out.println("Ny (ordre)\nFærdig (ordre)\nSluk (program)\nOmsætning (for i dag)\nHjælp");
 
                 trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
 
             } else if (input.equalsIgnoreCase("")) {
 
             } else {
-                System.out.println("Prøv igen. Brug Help kommandoen.");                                                 //Bruges hvis de laver fx en stavefejl.
+                System.out.println("Prøv igen. Brug Hjælp kommandoen.");                                                 //Bruges hvis de laver fx en stavefejl.
 
                 trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
 
@@ -317,3 +315,11 @@ public class Main {
         }
     }
 }
+
+
+
+//                // Når fejlen er rettet, kan i bare bruge følgende:
+//                LocalTime.now().minusMinutes(minutes);
+//                System.out.println(minutes);
+//                // !! Jeg formoder at i stadig kan bruge følgende:
+//                Duration remaining = Duration.between(LocalTime.now(), o.getOrdreFaerdig());

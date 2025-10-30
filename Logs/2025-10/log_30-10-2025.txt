@@ -10,3 +10,6 @@
 2xCacciatore_2_13:08_Walt_true_114.0
 2xCarbona_1_13:09_Ilse_true_126.0
 2xCarbona_2_19:10_Loppe_true_126.0
+2xCarbona_1_20:40_Ane_true_126.0
+3xVictoria_2_20:41_Poul_true_183.0
+1xBertil_2_20:46_Quan_false_57.0

@@ -5,7 +5,9 @@ import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FileUtilOrders {
 
@@ -19,7 +21,6 @@ public class FileUtilOrders {
         try(BufferedReader br = new BufferedReader(new FileReader(ordreFil))){                                          //Læser fra fil
             while((line = br.readLine()) != null) {
                 String[] data = line.split(deling);                                                                     //Bruger deleren til at skille mellem data på linjen
-
                 if (data.length > 6) continue; //Spring ugyldige linjer over
 
                 String pizzaer = data[0];                                                                               //Sætter variabel til data på index 0
@@ -44,6 +45,37 @@ public class FileUtilOrders {
         }
         return ordreList;                                                                                               //Returnerer array listen
     }
+
+    public static void visSolgtePizzaerPrType(List<Ordrer> ordrerList) {
+        Map<String, Integer> pizzaTaelling = new LinkedHashMap<>();
+
+        for (Ordrer ordre : ordrerList) {
+            if (ordre.getPizzaKlar()) {                                                                                 // kun færdige ordrer (true)
+                String[] dele = ordre.getPizzaer().split("\\s+");                                                 // fx "2xVesuvio 1xCarbonara"
+                for (String d : dele) {
+                    if (!d.contains("x")) continue;
+                    String[] antalNavn = d.split("x", 2);
+                    if (antalNavn.length != 2) continue;
+
+                    try {
+                        int antal = Integer.parseInt(antalNavn[0]);
+                        String navn = antalNavn[1];
+                        pizzaTaelling.put(navn, pizzaTaelling.getOrDefault(navn, 0) + antal);
+                    } catch (NumberFormatException ignored) {}
+                }
+            }
+        }
+
+        System.out.println("Solgte pizzaer i dag:");
+        if (pizzaTaelling.isEmpty()) {
+            System.out.println("  (ingen færdige ordrer endnu)");
+        } else {
+            for (Map.Entry<String, Integer> e : pizzaTaelling.entrySet()) {
+                System.out.println("  " + e.getKey() + ": " + e.getValue() + " stk.");
+            }
+        }
+    }
+
 }
 
 
