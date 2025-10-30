@@ -1,1 +1,3 @@
 1xCarbona_10_01:49_toki_false_120.00
+1xCacciatore 2xCarbona_15_09:22_Cas_false
+1xCacciatore_15_09:30_Kad_true

@@ -126,7 +126,6 @@ public class Main {
 
             //Printer ordrerne ud, og sorterer dem
             List<Ordrer> ordrerList = new ArrayList<>();
-            ordrerList = FileUtilOrders.readOrdreFromFile();                                                            //Udskriver ordrer ud
             ordrerList.sort(Comparator.comparing(Ordrer::getDifference).reversed());                                    //Sorterer
             System.out.println("\nAktive ordrer:");
             for (Ordrer o : ordrerList) {
