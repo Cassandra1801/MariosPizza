@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -11,17 +9,17 @@ import java.util.Map;
 
 public class FileUtilOrders {
 
-    public static List<Ordrer> readOrdreFromFile() {                                                                    //Funktion for at få array listen med objekter fra filen
+    public static List<Ordrer> readOrdreFromFile(String path ) {                                                        //Path er en indtastet pathway, så at den kan bruges til flere datoer                                                                    //Funktion for at få array listen med objekter fra filen
         String deling = "_";                                                                                            //Dette er den definerede deler
         String line = "";
-        String ordreFil = "Logs/" + Main.getMaanedNu() + "/log_" + Main.getDato() + ".txt";                             //Reference til hvilken fil
+        String ordreFil = path;                                                                                         //Reference til hvilken fil
         List<Ordrer> ordreList = new ArrayList<>();                                                                     //Laver en array liste
         DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm");
 
         try(BufferedReader br = new BufferedReader(new FileReader(ordreFil))){                                          //Læser fra fil
             while((line = br.readLine()) != null) {
                 String[] data = line.split(deling);                                                                     //Bruger deleren til at skille mellem data på linjen
-                if (data.length > 6) continue; //Spring ugyldige linjer over
+                if (data.length > 6) continue;                                                                          //Spring ugyldige linjer over
 
                 String pizzaer = data[0];                                                                               //Sætter variabel til data på index 0
                 int afhentning = Integer.parseInt(data[1]);                                                             //Sætter variabel til data på index 1
@@ -73,6 +71,15 @@ public class FileUtilOrders {
             for (Map.Entry<String, Integer> e : pizzaTaelling.entrySet()) {
                 System.out.println("  " + e.getKey() + ": " + e.getValue() + " stk.");
             }
+        }
+    }
+
+    public static void appendLine(File file, String line) {                                                             //Append en linje til dagens fil
+        try (FileWriter myWriter = new FileWriter(file, true)) {
+            myWriter.write(line + System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 

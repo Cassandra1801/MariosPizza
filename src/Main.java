@@ -17,8 +17,11 @@ import java.time.LocalTime;
 
 public class Main {
 
+    /// === !!!! SKAL VÆRE TRUE !!!! ======= Boolean Som Holder Systemet Kørende =======================================
     public static boolean aabent = true;                                                                                //Boolean for at holde while loop kørende
 
+
+    /// GetMaanedNu, GetDato, GetTid, Formatteret ======================================================================
     public static DateTimeFormatter MAANED_FMT = DateTimeFormatter.ofPattern("yyyy-MM");
     public static DateTimeFormatter DATO_FMT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public static DateTimeFormatter TID_FMT = DateTimeFormatter.ofPattern("HH:mm");
@@ -35,6 +38,8 @@ public class Main {
         return LocalDateTime.now().format(TID_FMT);
     }
 
+
+    /// Laver Mapperne For Måneden Hvis Den Ikke Eksisterer ============================================================
     public static File MappeForMaaned() {
         //Lav filstruktur; logs/2025-10/log_2025-10-27.txt
         String baseFolder = "Logs";
@@ -46,6 +51,8 @@ public class Main {
         return folder;
     }
 
+
+    /// Laver Dagens Fil Hvis Den Ikke Allerede Eksisterer =============================================================
     public static File DagensFil(File monthFolder) {
         File f = new File(monthFolder, "log_" + getDato() + ".txt");                                               // Create File object
         try {
@@ -61,17 +68,7 @@ public class Main {
         return f;
     }
 
-
-    public static void appendLine(File file, String line) {                                                             //Append en linje til dagens fil
-        try (FileWriter myWriter = new FileWriter(file, true)) {
-            myWriter.write(line + System.lineSeparator());
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-
-    //Opdaterer boolean for om en bestilling er klar til true, for et bestemt kunde ID
+    /// Ændrer Identificerede Ordrers Færdig Status Til true ===========================================================
     public static void updateOrdreFaerdig(String navn) throws IOException {
         Path filePath = Path.of("Logs/" + getMaanedNu() + "/" + "log_" + getDato() + ".txt");                       //Finder den rigtige fil og kalder locationen filePath
         List<String> lines = Files.readAllLines(filePath);
@@ -97,13 +94,18 @@ public class Main {
         System.out.println("Ordre er blevet opdateret: " + targetName);
     }
 
+
+    /// En Pause Funktion For At Kontrollere Output ====================================================================
     public static void trykEnKnap() {
         Scanner scAny = new Scanner(System.in);
         System.out.println("");
         System.out.println("Tryk en knap for at fortsætte.");
         scAny.nextLine();
+
     }
 
+
+    /// Danner Object ?????????????????????????? =======================================================================
     public static class PizzaBestilling {
         String pizzaTekst;
         double totalPris;
@@ -116,6 +118,7 @@ public class Main {
     }
 
 
+    /// Identifiserer En Pizza =========================================================================================
     public static PizzaMenuObj findPizzaById(int id, List<PizzaMenuObj> menu) {
         for (PizzaMenuObj p : menu) {
             if (p.getPizzaID() == id) {
@@ -125,6 +128,8 @@ public class Main {
         return null;                                                                                                    //Hvis ikke fundet
     }
 
+
+    /// Tæller Antal Pizzaer ===========================================================================================
     public static PizzaBestilling findFlerePizzaer(String input, List<PizzaMenuObj> menu) {
         String[] dele = input.split("\\s+");                                                                      //Split mellemrum
         Map<Integer, Integer> antalMap = new HashMap<>();
@@ -167,6 +172,9 @@ public class Main {
         return new PizzaBestilling(sb.toString().trim(), totalPris);
     }
 
+
+    /// Denne Bliver Ikke Brugt Til Noget, Men Ville Ikke Fjerne Den Før I Har Kigget På Den ===========================
+    /*
     public static void ordreKlar(File dagensFil, String navn) {
         try {
             List<String> linjer = new ArrayList<>();
@@ -192,19 +200,63 @@ public class Main {
         }
     }
 
+     */
 
-    /// MAIN KLASSEN //////////////////////////////////////////////////////////////////////////////////
+    /// Beregner Omsætningen For Dagen =================================================================================
+    public static double BeregnOmsaetning(String pathen) {
+        String path = pathen;
+        List<Ordrer> ordrerList = FileUtilOrders.readOrdreFromFile(path);
+
+        double totalForDag = 0;
+        for (Ordrer ordre : ordrerList) {
+            if (ordre.getPizzaKlar()) {
+                // Lægger indtjeningen sammen
+                totalForDag += ordre.getTotalPris();
+            }
+        }
+        return totalForDag;
+    }
+
+    /// Transformerer Et Dato Input til En Path ========================================================================
+    public static String IndtastetDato() {
+        Scanner scanner = new Scanner(System.in);
+
+        // Læser Input
+        System.out.print("Indtast ønskede dato: (DD-MM-YYYY): ");
+        String dateStr = scanner.nextLine();
+
+        // Deler Den Op
+        String[] parts = dateStr.split("-");
+        String day = parts[0];
+        String month = parts[1];
+        String year = parts[2];
+
+        // Danner Path
+        String path = "Logs/" + year + "-" + month + "/log_" + dateStr + ".txt";
+
+        return path;
+    }
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// MAIN KLASSEN ///////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public static void main(String[] args) throws IOException {
 
+
+
+        /// Laver Filen For Dagen Hvis Den Ikke Eksisterer =============================================================
         File monthFolder = MappeForMaaned();                                                                            //Mappe for månederne
         File dagensFil = DagensFil(monthFolder);                                                                        //Filer for dags dato
 
-        Scanner sc = new Scanner(System.in);                                                                            //Scanner der tager input til start menu
 
+        Scanner sc = new Scanner(System.in);                                                                            //Scanner der tager input til start menu
 
         while (aabent == true) {                                                                                        //Loop der gør at man altid returnerer til startmenu og udskriver pizza menuen
 
-            ///Udskriver Menuen ======================================================================
+            ///Udskriver Menuen ========================================================================================
             List<PizzaMenuObj> pizzaMenuObj = new ArrayList<>();                                                        //Udskriver pizza menu
             pizzaMenuObj = FileUtil.readPizzaFromFile();
 
@@ -212,39 +264,29 @@ public class Main {
                 System.out.println(p);
             }
 
-            ///Printer Sorterede Ordrer ==============================================================
-            List<Ordrer> ordrerList = FileUtilOrders.readOrdreFromFile();
+            ///Printer Sorterede Ordrer ================================================================================
+            String path = "Logs/" + Main.getMaanedNu() + "/log_" + Main.getDato() + ".txt";
+            List<Ordrer> ordrerList = FileUtilOrders.readOrdreFromFile(path);
             ordrerList.sort(Comparator.comparing(Ordrer::getDifference).reversed());                                    //Sorterer
-
-            // Holder på indtjening
-            double totalForDag = 0;
-            for (Ordrer ordre : ordrerList) {
-                if (ordre.getPizzaKlar()) {
-                    // Lægger indtjeningen sammen
-                    totalForDag += ordre.getTotalPris();
-                }
-            }
-
-            System.out.println(" ");
-
-            // Printer samlede resultat
-            System.out.println("Omsætningen for i dag: " + totalForDag);
-
-
 
             System.out.println("\nAktive ordrer:");
             for (Ordrer o : ordrerList) {
                 System.out.println(o.getDifference() + " | " + o.getPizzaer() + " | " + o.getNavn());
             }
 
+            ///Beregner den totale omsætning for dagen =================================================================
+
+
+            /// ??????????????????????????????????????????? ============================================================
             for (Ordrer o : ordrerList) {
                 // getOrdreFaerdig returnere timer og minuter
                 // Fejl i DATA
                 LocalTime test = o.getOrdreFaerdig();
                 int minutes = test.getMinute();
-
             }
 
+
+            ///Starten På Output til StartMenu =========================================================================
             System.out.println(" ");
 
             System.out.println("INDTAST EN KOMMANDO - Brug 'Hjælp' for at se muligheder - Tryk enter for at opdatere.");
@@ -252,11 +294,11 @@ public class Main {
             String input = sc.nextLine();                                                                               //Inputtet lagres som en string variabel, for ellers vil equals ikke læse det
 
 
-            ///Command Line Mulighederne ============================================================
+            ///Command Line Mulighederne ===============================================================================
 
-            if (input.equalsIgnoreCase("Ny")) {                                                            //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
+            if (input.equalsIgnoreCase("Ny")) {                                                             //Bruger equals til at sammenligne, ikke sige det er det (there is a difference somehow)
+
                 System.out.println("Laver ny ordre");                                                                   //Laver en ny ordre
-
 
                 System.out.println("Bestilling (indtast pizzanummer adskilt med mellemrum): ");                         //Input for bestillingen
                 String pizzaInput = sc.nextLine();
@@ -264,23 +306,22 @@ public class Main {
                 PizzaBestilling bestilling = findFlerePizzaer(pizzaInput, pizzaMenuObj);
                 System.out.println("Du har valgt: " + bestilling.pizzaTekst);                                           //Viser hvilken pizza der blev valgt
 
-
                 System.out.println("Tid:");                                                                             //Input for tiden på bestillingen
                 int tid = Integer.parseInt(sc.nextLine());
-
 
                 System.out.println("Navn:");                                                                            //Input for navn på bestillingen
                 String navn = sc.nextLine();
 
-
-                String linje = bestilling.pizzaTekst + "_" + tid + "_" + getTid() + "_" + navn + "_" + "false" + "_" + bestilling.totalPris;                   //Finder og formaterer pizzaerne
-                appendLine(dagensFil, linje);                                                                           //Skriver i dags dato filen
+                String linje = bestilling.pizzaTekst + "_" + tid + "_" + getTid() + "_" +
+                                                    navn + "_" + "false" + "_" + bestilling.totalPris;                  //Finder og formaterer pizzaerne
+                FileUtilOrders.appendLine(dagensFil, linje);                                                                           //Skriver i dags dato filen
 
                 System.out.println("Skriv Færdig, når ordren er færdig\n");
 
                 trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
 
             } else if (input.equalsIgnoreCase("Færdig")) {
+
                 System.out.println("Indtast navn på den ordre, der er færdig: ");
                 String navn = sc.nextLine();
                 updateOrdreFaerdig(navn);                                                                               //Kalder funktionen som opdaterer ordren via input
@@ -288,25 +329,33 @@ public class Main {
                 trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
 
             } else if (input.equalsIgnoreCase("Sluk")) {
+
                 System.out.println("Slukker");
                 aabent = false;
 
             } else if (input.equalsIgnoreCase("Omsætning")) {
-                System.out.println("Omsætning for i dag: " + totalForDag + " kr.");
 
+                String inputPath = IndtastetDato();
 
-                FileUtilOrders.visSolgtePizzaerPrType(ordrerList);
+                List<Ordrer> datoList = FileUtilOrders.readOrdreFromFile(inputPath);
+
+                FileUtilOrders.visSolgtePizzaerPrType(datoList);                                                      //Udskriver statistikken for dagen
+                System.out.println("Omsætning for i dag: " + BeregnOmsaetning(inputPath) + " kr.");                                     //Udskriver den totale omsætning for dagen
 
                 trykEnKnap();
 
-            } else if (input.equalsIgnoreCase("Hjælp")) {                                                    //Mulige kommandoer
+            } else if (input.equalsIgnoreCase("Hjælp")) {                                                   //Mulige kommandoer
+
                 System.out.println("Ny (ordre)\nFærdig (ordre)\nSluk (program)\nOmsætning (for i dag)\nHjælp");
 
                 trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
 
             } else if (input.equalsIgnoreCase("")) {
 
+                //For at skippe tomt input
+
             } else {
+
                 System.out.println("Prøv igen. Brug Hjælp kommandoen.");                                                 //Bruges hvis de laver fx en stavefejl.
 
                 trykEnKnap();                                                                                           //Tryk en knap for at forstætte (for at se output)
@@ -315,11 +364,3 @@ public class Main {
         }
     }
 }
-
-
-
-//                // Når fejlen er rettet, kan i bare bruge følgende:
-//                LocalTime.now().minusMinutes(minutes);
-//                System.out.println(minutes);
-//                // !! Jeg formoder at i stadig kan bruge følgende:
-//                Duration remaining = Duration.between(LocalTime.now(), o.getOrdreFaerdig());
