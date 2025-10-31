@@ -32,7 +32,6 @@ public class Main {
         return LocalDateTime.now().format(TID_FMT);
     }
 
-
     /// Laver Mapperne For Måneden Hvis Den Ikke Eksisterer ============================================================
     public static File MappeForMaaned() {
         String baseFolder = "Logs";                                                                                     //Lav filstruktur; logs/2025-10/log_2025-10-27.txt
