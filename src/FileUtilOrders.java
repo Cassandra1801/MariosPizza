@@ -31,7 +31,6 @@ public class FileUtilOrders {
                 if (data.length > 5) {
                     totalPris = Double.parseDouble(data[5]);
                 }
-                //if (pizzaKlar) continue;                                                                              //Spring ordrer over som allerede er hentet(true)
 
                 double prisIkkeKlar = pizzaKlar ? totalPris : 0.0;
 
@@ -48,8 +47,8 @@ public class FileUtilOrders {
         Map<String, Integer> pizzaTaelling = new LinkedHashMap<>();
 
         for (Ordrer ordre : ordrerList) {
-            if (ordre.getPizzaKlar()) {                                                                                 // kun færdige ordrer (true)
-                String[] dele = ordre.getPizzaer().split("\\s+");                                                 // fx "2xVesuvio 1xCarbonara"
+            if (ordre.getPizzaKlar()) {                                                                                 //Kun færdige ordrer (true)
+                String[] dele = ordre.getPizzaer().split("\\s+");
                 for (String d : dele) {
                     if (!d.contains("x")) continue;
                     String[] antalNavn = d.split("x", 2);

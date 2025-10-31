@@ -4,11 +4,11 @@ import java.time.LocalTime;
 
 public class Ordrer {
 
-    //Default constructor
+    ///Default constructor =============================================================================================
     public Ordrer() {
     }
 
-    //Variabler
+    ///Variabler =======================================================================================================
     private String pizzaer;
     private int afhentning;
     private LocalTime ordreLavet;
@@ -17,7 +17,7 @@ public class Ordrer {
     private double totalPris;
 
 
-    //Constructer
+    ///Constructer =====================================================================================================
     public Ordrer(String pizzaer, int afhentning, LocalTime ordreLavet, String navn, boolean pizzaKlar, double totalPris, double prisIkkeKlar) {
         this.pizzaer = pizzaer;
         this.afhentning = afhentning;
@@ -27,7 +27,8 @@ public class Ordrer {
         this.totalPris = totalPris;
     }
 
-    //Gettere
+
+    ///Gettere =========================================================================================================
     public String getPizzaer() {
         return pizzaer;
     }
@@ -48,12 +49,14 @@ public class Ordrer {
         return pizzaKlar;
     }
 
-    //Færdig tidspunkt
+
+    ///Færdig tidspunkt ================================================================================================
     public LocalTime getOrdreFaerdig() {
         return ordreLavet.plusMinutes(afhentning);
     }
 
-    //Differencen mellem hvornår den skal være færdig og den reelle tid i minutter
+
+    ///Differencen mellem hvornår den skal være færdig og den reelle tid i minutter ====================================
     public String getDifference() {
         if (pizzaKlar) {
             return "Færdig";

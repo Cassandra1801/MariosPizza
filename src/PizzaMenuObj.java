@@ -1,16 +1,18 @@
 public class PizzaMenuObj {
 
-    //Default constructor
+    ///Default constructor =============================================================================================
     public PizzaMenuObj() {
     }
 
-    //Variabler
+
+    ///Variabler =======================================================================================================
     private int pizzaID;
     private String navn;
     private String toppings;
     private double totalPris;
 
-    //PizzaMenu constructor
+
+    ///PizzaMenu constructor ===========================================================================================
     public PizzaMenuObj(int pizzaID, String navn, String toppings, double pris) {
         this.pizzaID = pizzaID;
         this.navn = navn;
@@ -18,17 +20,20 @@ public class PizzaMenuObj {
         this.totalPris = pris;
     }
 
-    //GetPizzaID
+
+    ///GetPizzaID ======================================================================================================
     public int getPizzaID() {
         return pizzaID;
     }
 
-    //GetNavn
+
+    ///GetNavn =========================================================================================================
     public String getNavn() {
         return navn;
     }
 
-    //GetToppings
+
+    ///GetToppings =====================================================================================================
     public String getToppings() {
         return toppings;
     }
@@ -38,9 +43,7 @@ public class PizzaMenuObj {
     }
 
 
-
-
-    //ToString af menuen
+    ///ToString af menuen ==============================================================================================
     @Override
     public String toString() {
         return pizzaID + ". " + navn + ": " + toppings + " | " + totalPris + " kr.";
