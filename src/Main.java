@@ -216,19 +216,23 @@ public class Main {
             List<PizzaMenuObj> pizzaMenuObj = new ArrayList<>();                                                        //Udskriver pizza menu
             pizzaMenuObj = FileUtil.readPizzaFromFile();
 
+            System.out.println("");
+            System.out.println("===   Menu   ======================================================");
             for (PizzaMenuObj p : pizzaMenuObj) {
                 System.out.println(p);
             }
+            System.out.println("");
 
             ///Printer Sorterede Ordrer ================================================================================
             String path = "Logs/" + Main.getMaanedNu() + "/log_" + Main.getDato() + ".txt";
             List<Ordrer> ordrerList = FileUtilOrders.readOrdreFromFile(path);
             ordrerList.sort(Comparator.comparing(Ordrer::getDifference).reversed());                                    //Sorterer
 
-            System.out.println("\nAktive ordrer:");
+            System.out.println("===   Aktive Ordrer   =============================================");
             for (Ordrer o : ordrerList) {
                 System.out.println(o.getDifference() + " | " + o.getPizzaer() + " | " + o.getNavn());
             }
+            System.out.println("");
 
 
             ///Starten På Output til StartMenu =========================================================================
